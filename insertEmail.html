@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <label for="email">Email</label><br>
+    <input type="email" id="email">
+    <button onclick="PostEmail(event)">POST EMAIL</button><br>
+    <h1 id="message"></h1>
+    <img src="http://localhost:8080/showFile?name=Student Case study.png" alt="">
+</body>
+<script>
+   async function PostEmail(event){
+    event.preventDefault()
+    let mail=document.getElementById('email').value
+    console.log(mail)
+    let data={
+        "email":mail
+    }
+    let post = await fetch("http://localhost:8080/insertEmail", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body:JSON.stringify(data)
+            })
+     console.log(post)
+            var data1 = await post.json()
+        console.log(data1) 
+        document.getElementById('message').innerHTML=data1.message
+    }
+</script>
+</html>
